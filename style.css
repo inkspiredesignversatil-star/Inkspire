@@ -708,3 +708,15 @@ section::before {
     .fechar-lightbox { top: 20px; right: 25px; font-size: 45px; }
     .seta-lightbox { font-size: 35px; padding: 10px; }
 }
+/* TRAVA ANTI-CÓPIA PARA IMAGENS */
+img {
+    user-select: none; /* Impede selecionar a imagem */
+    -webkit-user-drag: none; /* Impede arrastar a imagem (Browsers Webkit/Chrome) */
+    -webkit-touch-callout: none; /* Impede abrir o menu de salvar ao segurar o dedo no celular */
+    pointer-events: none; /* Bloqueia interações diretas de clique/salvamento na imagem */
+}
+
+/* Garante que o Lightbox e os Cards continuem clicáveis, mesmo com a imagem travada */
+.card, .lightbox, .seta-lightbox, .fechar-lightbox {
+    pointer-events: auto !important;
+}
