@@ -213,19 +213,78 @@ h2 {
     gap: 30px;
 }
 
+/* CARD ATUALIZADO COM EFEITO RGB NEON */
 .card {
     position: relative;
     overflow: hidden;
     border-radius: 20px;
-    background: rgba(255, 255, 255, .03);
+    background: #0b1020; /* Fundo sólido escuro para o RGB destacar */
     border: 1px solid rgba(255, 255, 255, .08);
     transition: .4s ease;
     cursor: pointer;
+    z-index: 1;
 }
 
+/* O Segredo do RGB: Criamos uma camada colorida atrás do card */
+.card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    /* Gradiente com as cores do RGB */
+    background: linear-gradient(
+        0deg, 
+        transparent, 
+        #00d4ff, 
+        #ff007f, 
+        #7000ff, 
+        transparent
+    );
+    transform-origin: center;
+    z-index: -2;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 0.5s ease;
+}
+
+/* Máscara interna para a borda não cobrir a foto do seu projeto */
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 3px; /* É a grossura da sua borda RGB (3px) */
+    background: #0b1020;
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Quando passar o mouse (Hover) o RGB ganha vida */
 .card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .4), 0 0 20px rgba(0, 212, 255, .2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 212, 255, 0.4);
+    border-color: transparent; /* Remove a borda antiga para brilhar o RGB */
+}
+
+.card:hover::before {
+    opacity: 1;
+    /* Ativa a animação chamada "girarRGB" que dura 4 segundos e roda infinito */
+    animation: girarRGB 4s linear infinite; 
+}
+
+.card:hover::after {
+    opacity: 1;
+}
+
+/* A ANIMAÇÃO DO GIRO COMPLETO (360 GRAUS) */
+@keyframes girarRGB {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .card img {
