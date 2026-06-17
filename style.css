@@ -331,8 +331,11 @@ h2 {
     padding: 60px 8%;
 }
 
+/* CONTADORES (NÚMEROS) COM EFEITO RGB */
 .numero {
-    background: rgba(255, 255, 255, .03);
+    position: relative;
+    overflow: hidden;
+    background: #0b1020; /* Fundo sólido escuro */
     border: 1px solid rgba(255, 255, 255, .08);
     padding: 30px;
     border-radius: 20px;
@@ -340,6 +343,57 @@ h2 {
     min-width: 180px;
     backdrop-filter: blur(15px);
     transition: .4s ease;
+    z-index: 1;
+}
+
+/* Camada do Gradiente RGB atrás do contador */
+.numero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        0deg, 
+        transparent, 
+        #00d4ff, 
+        #ff007f, 
+        #7000ff, 
+        transparent
+    );
+    transform-origin: center;
+    z-index: -2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Máscara interna para manter o fundo escuro do contador */
+.numero::after {
+    content: "";
+    position: absolute;
+    inset: 3px; /* Grossura da borda */
+    background: #0b1020;
+    border-radius: 17px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Efeito ao passar o mouse nos números */
+.numero:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 212, 255, 0.4);
+    border-color: transparent;
+}
+
+.numero:hover::before {
+    opacity: 1;
+    animation: girarRGB 4s linear infinite; /* Usa a mesma animação que já criamos antes */
+}
+
+.numero:hover::after {
+    opacity: 1;
 }
 
 .numero h3 {
