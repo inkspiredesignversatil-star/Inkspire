@@ -130,3 +130,7 @@ btnFechar.addEventListener("click", fecharAlbum);
 lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) fecharAlbum();
 });
+// BLOQUEIA O BOTÃO DIREITO DO MOUSE NO SITE INTEIRO
+document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+});
