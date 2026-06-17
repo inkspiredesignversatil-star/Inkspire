@@ -95,42 +95,48 @@ nav a:hover::after {
     width: 100%;
 }
 
-/* HERO (INTRODUÇÃO) */
+/* HERO (INTRODUÇÃO) TOTALMENTE CENTRALIZADO */
 .hero {
     min-height: 100vh;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 80px;
+    text-align: center;
+    gap: 30px;
     padding: 0 10%;
 }
 
 .hero-text {
-    max-width: 700px;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .hero span {
     color: #00d4ff;
     font-size: 18px;
+    margin-bottom: 10px;
 }
 
 .hero h1 {
-    font-size: clamp(40px, 6vw, 70px);
-    line-height: 1.1;
+    font-size: clamp(40px, 5.5vw, 65px);
+    line-height: 1.2;
     margin: 15px 0;
 }
 
 .hero p {
     color: #bdbdbd;
-    max-width: 600px;
+    max-width: 650px;
     font-size: 18px;
     line-height: 1.8;
-    margin-bottom: 30px;
 }
 
 .buttons {
     display: flex;
     gap: 15px;
+    justify-content: center;
 }
 
 /* BOTÕES */
@@ -182,6 +188,11 @@ h2 {
     display: flex;
     gap: 50px;
     align-items: center;
+}
+
+.sobre-texto {
+    flex: 1;
+    text-align: left;
 }
 
 /* PORTFÓLIO & GRID */
@@ -567,21 +578,20 @@ section::before {
 .proxima { right: 2%; }
 
 /* =======================================================
-   ESTILIZAÇÃO CORRIGIDA DO RGB E TAMANHO COMPLETO DAS FOTOS
+   ESTILIZAÇÃO UNIFICADA DO RGB PARA A FOTO DO SOBRE MIM
    ======================================================= */
-.hero-img, .foto-wrapper {
+.foto-wrapper {
     position: relative;
     overflow: hidden;
     border-radius: 30px;
-    padding: 4px; /* Grossura do RGB */
+    padding: 4px;
     background: #0b1020;
     z-index: 1;
     display: inline-block;
     box-shadow: 0 0 35px rgba(0, 212, 255, 0.35);
 }
 
-/* Efeito giratório compartilhado */
-.hero-img::before, .foto-wrapper::before {
+.foto-wrapper::before {
     content: "";
     position: absolute;
     top: -50%;
@@ -599,18 +609,6 @@ section::before {
     transform-origin: center;
     z-index: -2;
     animation: girarRGB 4s linear infinite;
-}
-
-/* Correção de tamanho: Força a foto a aparecer toda sem cortes */
-.hero-img img {
-    width: 100%;
-    max-width: 400px;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 26px;
-    display: block;
-    position: relative;
-    z-index: 1;
 }
 
 .foto-wrapper img {
@@ -653,22 +651,14 @@ section::before {
     }
 
     .hero {
-        flex-direction: column !important;
-        text-align: center !important;
-        padding-top: 140px !important;
-        gap: 40px !important;
-    }
-
-    .hero-text {
-        padding: 0 10px;
-        text-align: center;
+        padding-top: 160px !important;
+        gap: 30px !important;
     }
 
     .hero-text h1 {
         font-size: 2.2rem !important;
         line-height: 1.2 !important;
         letter-spacing: -1px;
-        word-wrap: break-word;
     }
 
     .hero p {
@@ -676,13 +666,9 @@ section::before {
     }
 
     .buttons {
-        justify-content: center;
-    }
-
-    /* Redimensionamento Responsivo Perfeito no Mobile */
-    .hero-img img {
-        max-width: 280px !important;
-        height: 350px !important;
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
     }
 
     .foto-wrapper img {
@@ -692,12 +678,14 @@ section::before {
 
     section {
         padding: 60px 20px !important;
-        width: 100%;
-        box-sizing: border-box;
     }
 
     .container {
         flex-direction: column !important;
+        text-align: center !important;
+    }
+
+    .sobre-texto {
         text-align: center !important;
     }
 
