@@ -162,19 +162,6 @@ nav a:hover::after {
     transform: translateY(-5px);
 }
 
-.hero-img {
-    position: relative;
-}
-
-.hero-img img {
-    width: 400px;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 30px;
-    border: 2px solid rgba(0, 212, 255, .3);
-    box-shadow: 0 0 40px rgba(0, 212, 255, .25);
-}
-
 /* SEÇÕES GERAIS */
 .sobre,
 .portfolio,
@@ -190,20 +177,11 @@ h2 {
     margin-bottom: 40px;
 }
 
-/* SOBRE */
+/* SOBRE & CONTAINER STRUCT */
 .container {
     display: flex;
     gap: 50px;
     align-items: center;
-}
-
-.container img {
-    width: 350px;
-    height: 450px;
-    object-fit: cover;
-    border-radius: 25px;
-    border: 3px solid #00d4ff;
-    box-shadow: 0 0 25px rgba(0, 212, 255, .5);
 }
 
 /* PORTFÓLIO & GRID */
@@ -218,14 +196,13 @@ h2 {
     position: relative;
     overflow: hidden;
     border-radius: 20px;
-    background: #0b1020; /* Fundo sólido escuro para o RGB destacar */
+    background: #0b1020;
     border: 1px solid rgba(255, 255, 255, .08);
     transition: .4s ease;
     cursor: pointer;
     z-index: 1;
 }
 
-/* O Segredo do RGB: Criamos uma camada colorida atrás do card */
 .card::before {
     content: "";
     position: absolute;
@@ -233,7 +210,6 @@ h2 {
     left: -50%;
     width: 200%;
     height: 200%;
-    /* Gradiente com as cores do RGB */
     background: linear-gradient(
         0deg, 
         transparent, 
@@ -244,15 +220,14 @@ h2 {
     );
     transform-origin: center;
     z-index: -2;
-    opacity: 0; /* Começa invisível */
+    opacity: 0;
     transition: opacity 0.5s ease;
 }
 
-/* Máscara interna para a borda não cobrir a foto do seu projeto */
 .card::after {
     content: "";
     position: absolute;
-    inset: 3px; /* É a grossura da sua borda RGB (3px) */
+    inset: 3px;
     background: #0b1020;
     border-radius: 17px;
     z-index: -1;
@@ -260,16 +235,14 @@ h2 {
     transition: opacity 0.5s ease;
 }
 
-/* Quando passar o mouse (Hover) o RGB ganha vida */
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 212, 255, 0.4);
-    border-color: transparent; /* Remove a borda antiga para brilhar o RGB */
+    border-color: transparent;
 }
 
 .card:hover::before {
     opacity: 1;
-    /* Ativa a animação chamada "girarRGB" que dura 4 segundos e roda infinito */
     animation: girarRGB 4s linear infinite; 
 }
 
@@ -277,14 +250,10 @@ h2 {
     opacity: 1;
 }
 
-/* A ANIMAÇÃO DO GIRO COMPLETO (360 GRAUS) */
+/* A ANIMAÇÃO DO GIRO COMPLETO */
 @keyframes girarRGB {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .card img {
@@ -300,6 +269,8 @@ h2 {
 }
 
 .projeto-info {
+    position: relative;
+    z-index: 2;
     padding: 20px;
     background: rgba(0, 0, 0, .4);
     backdrop-filter: blur(10px);
@@ -335,7 +306,7 @@ h2 {
 .numero {
     position: relative;
     overflow: hidden;
-    background: #0b1020; /* Fundo sólido escuro */
+    background: #0b1020;
     border: 1px solid rgba(255, 255, 255, .08);
     padding: 30px;
     border-radius: 20px;
@@ -346,7 +317,6 @@ h2 {
     z-index: 1;
 }
 
-/* Camada do Gradiente RGB atrás do contador */
 .numero::before {
     content: "";
     position: absolute;
@@ -368,11 +338,10 @@ h2 {
     transition: opacity 0.5s ease;
 }
 
-/* Máscara interna para manter o fundo escuro do contador */
 .numero::after {
     content: "";
     position: absolute;
-    inset: 3px; /* Grossura da borda */
+    inset: 3px;
     background: #0b1020;
     border-radius: 17px;
     z-index: -1;
@@ -380,7 +349,6 @@ h2 {
     transition: opacity 0.5s ease;
 }
 
-/* Efeito ao passar o mouse nos números */
 .numero:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 212, 255, 0.4);
@@ -389,7 +357,7 @@ h2 {
 
 .numero:hover::before {
     opacity: 1;
-    animation: girarRGB 4s linear infinite; /* Usa a mesma animação que já criamos antes */
+    animation: girarRGB 4s linear infinite;
 }
 
 .numero:hover::after {
@@ -397,13 +365,15 @@ h2 {
 }
 
 .numero h3 {
+    position: relative;
+    z-index: 2;
     color: #00d4ff;
     font-size: 40px;
 }
 
-.numero:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 20px rgba(0, 212, 255, .2);
+.numero p {
+    position: relative;
+    z-index: 2;
 }
 
 /* SERVIÇOS & HABILIDADES */
@@ -432,7 +402,7 @@ h2 {
     box-shadow: 0 0 20px rgba(0, 212, 255, .2);
 }
 
-/* CONTATO & REDES */
+/* CONTATO & REDES SOCIAIS COM ÍCONES */
 .contato {
     text-align: center;
 }
@@ -451,14 +421,18 @@ h2 {
 .social a {
     color: #00d4ff;
     text-decoration: none;
-    transition: .3s;
+    font-size: 32px;
+    transition: .3s ease;
+    display: inline-block;
 }
 
 .social a:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px) scale(1.1);
+    color: #ff007f;
+    filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.6));
 }
 
-/* WHATSAPP */
+/* WHATSAPP FLUTUANTE */
 .whatsapp {
     position: fixed;
     right: 20px;
@@ -526,7 +500,7 @@ section::before {
     transform: translateY(0);
 }
 
-/* LIGHTBOX CORRIGIDO (ÁLBUM DE FOTOS MOBILE-FIRST) */
+/* LIGHTBOX CORRIGIDO (ÁLBUM DE FOTOS) */
 .lightbox {
     display: none;
     position: fixed;
@@ -592,6 +566,63 @@ section::before {
 .anterior { left: 2%; }
 .proxima { right: 2%; }
 
+/* =======================================================
+   ESTILIZAÇÃO CORRIGIDA DO RGB E TAMANHO COMPLETO DAS FOTOS
+   ======================================================= */
+.hero-img, .foto-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 30px;
+    padding: 4px; /* Grossura do RGB */
+    background: #0b1020;
+    z-index: 1;
+    display: inline-block;
+    box-shadow: 0 0 35px rgba(0, 212, 255, 0.35);
+}
+
+/* Efeito giratório compartilhado */
+.hero-img::before, .foto-wrapper::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        0deg, 
+        transparent, 
+        #00d4ff, 
+        #ff007f, 
+        #7000ff, 
+        transparent
+    );
+    transform-origin: center;
+    z-index: -2;
+    animation: girarRGB 4s linear infinite;
+}
+
+/* Correção de tamanho: Força a foto a aparecer toda sem cortes */
+.hero-img img {
+    width: 100%;
+    max-width: 400px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 26px;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.foto-wrapper img {
+    width: 100%;
+    max-width: 350px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 26px;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
 
 /* =======================================================
    REGRAS DE RESPONSIVIDADE (CELULARES / MOBILE) UNIFICADAS
@@ -602,7 +633,6 @@ section::before {
         width: 100%;
     }
 
-    /* Ajuste estrutural do Menu Superior para não esmagar */
     header {
         padding: 15px 20px !important;
         flex-direction: column !important;
@@ -622,7 +652,6 @@ section::before {
         margin-right: 10px !important;
     }
 
-    /* Evita que o topo do texto seja engolido pelo menu fixo */
     .hero {
         flex-direction: column !important;
         text-align: center !important;
@@ -635,7 +664,6 @@ section::before {
         text-align: center;
     }
 
-    /* Reduz dinamicamente os títulos grandes */
     .hero-text h1 {
         font-size: 2.2rem !important;
         line-height: 1.2 !important;
@@ -651,12 +679,17 @@ section::before {
         justify-content: center;
     }
 
+    /* Redimensionamento Responsivo Perfeito no Mobile */
     .hero-img img {
-        width: 280px !important;
+        max-width: 280px !important;
         height: 350px !important;
     }
 
-    /* Ajuste das outras seções */
+    .foto-wrapper img {
+        max-width: 280px !important;
+        height: 350px !important;
+    }
+
     section {
         padding: 60px 20px !important;
         width: 100%;
@@ -668,13 +701,6 @@ section::before {
         text-align: center !important;
     }
 
-    .container img {
-        width: 100% !important;
-        max-width: 320px !important;
-        height: auto !important;
-    }
-
-    /* Grids mudando para 1 coluna por linha no celular */
     .grid, .habilidades .cards {
         grid-template-columns: 1fr !important;
         gap: 20px !important;
@@ -691,7 +717,6 @@ section::before {
         max-width: 280px;
     }
 
-    /* Ajustes das setas do álbum no celular */
     .fechar-lightbox { top: 20px; right: 25px; font-size: 45px; }
     .seta-lightbox { font-size: 35px; padding: 10px; }
 }
