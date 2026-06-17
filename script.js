@@ -1,10 +1,19 @@
-// Força o site a sempre carregar no topo absoluto da página sem pular
-window.onload = function() {
-    setTimeout(function() {
-        window.scrollTo(0, 0);
-    }, 10);
-};
+// FORÇA O SITE A COMEÇAR DO TOPO ABSOLUTO (PONTO ZERO)
+// Desativa temporariamente a rolagem suave na abertura para evitar "pulos"
+document.documentElement.style.scrollBehavior = "auto";
 
+window.addEventListener("DOMContentLoaded", () => {
+    window.scrollTo(0, 0);
+    
+    // Devolve a rolagem suave após garantir que o site abriu no topo
+    setTimeout(() => {
+        document.documentElement.style.scrollBehavior = "smooth";
+    }, 100);
+});
+
+window.onload = function() {
+    window.scrollTo(0, 0);
+};
 // Efeito do ponto de luz (Glow) seguindo o mouse
 const glow = document.createElement("div");
 glow.classList.add("glow");
