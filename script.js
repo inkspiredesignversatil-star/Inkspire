@@ -1,3 +1,9 @@
+// Força o site a sempre carregar no topo absoluto da página
+window.onload = function() {
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+};
 const glow = document.createElement("div");
 
 glow.classList.add("glow");
