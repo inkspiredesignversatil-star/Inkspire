@@ -60,12 +60,12 @@ function reveal(){
 }
 window.addEventListener("scroll", reveal);
 
-// Só ativa as animações depois que tudo estiver no lugar
+// Só activa as animações depois que tudo estiver no lugar
 setTimeout(reveal, 200);
 
 
 // ==========================================
-// LÓGICA DO ÁLBUM (LIGHTBOX)
+// LÓGICA DO ÁLBUM (LIGHTBOX) COM PRÉ-CARREGAMENTO
 // ==========================================
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
@@ -82,11 +82,26 @@ if(lightbox) {
     lightbox.style.display = "none";
 }
 
+// FUNÇÃO ATUALIZADA: Pré-carrega as imagens na memória do navegador
+function preCarregarImagens(listaImagens) {
+    listaImagens.forEach((url) => {
+        const imgFake = new Image();
+        imgFake.src = url.trim();
+    });
+}
+
 cardsPortfolio.forEach(card => {
+    const albumData = card.getAttribute("data-album");
+    if (albumData) {
+        // Pré-carrega todas as fotos assim que o site abre, evitando lentidão ao passar
+        const fotosDoCard = albumData.split(",");
+        preCarregarImagens(fotosDoCard);
+    }
+
     card.addEventListener("click", () => {
-        const albumData = card.getAttribute("data-album");
-        if (albumData) {
-            imagensAlbum = albumData.split(",");
+        const dadosDoAlbum = card.getAttribute("data-album");
+        if (dadosDoAlbum) {
+            imagensAlbum = dadosDoAlbum.split(",");
             indexAtual = 0;
             mostrarImagem(indexAtual);
             
@@ -130,6 +145,7 @@ btnFechar.addEventListener("click", fecharAlbum);
 lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) fecharAlbum();
 });
+
 // BLOQUEIA O BOTÃO DIREITO DO MOUSE NO SITE INTEIRO
 document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
