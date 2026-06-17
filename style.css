@@ -779,3 +779,34 @@ nav a:hover::after{
     .fechar-lightbox { top: 20px; right: 25px; font-size: 45px; }
     .seta-lightbox { font-size: 30px; padding: 10px; }
 }
+/* CONFIGURAÇÃO DE CORREÇÃO PARA CELULARES (RESPONSIVIDADE) */
+@media (max-width: 768px) {
+    /* Garante que o site não passe do limite da tela do celular */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Adiciona espaço nas laterais de todas as seções para o texto não colar na tela */
+    section {
+        padding: 60px 20px !important; 
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Reduz o tamanho do título principal para caber perfeitamente sem precisar tirar o zoom */
+    .hero-text h1 {
+        font-size: 2rem !important; /* Diminui o tamanho da letra no celular */
+        line-height: 1.2;
+        letter-spacing: -1px;
+        word-wrap: break-word;
+    }
+
+    /* Ajusta o espaçamento do bloco de introdução */
+    .hero-text {
+        padding: 0 10px;
+        text-align: left;
+    }
+}
