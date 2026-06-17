@@ -163,6 +163,25 @@ nav a:hover{
 .btn-secondary:hover{
     transform:translateY(-5px);
 }
+/* AJUSTE DO MENU PARA CELULAR (MOBILE) */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px; /* Deixa o espaçamento interno menor */
+        flex-direction: column; /* Coloca o logo em cima e os links embaixo */
+        gap: 10px; /* Dá um espacinho entre o logo e o menu */
+    }
+
+    nav {
+        width: 100%;
+        justify-content: center; /* Centraliza os links na tela */
+        gap: 15px; /* Diminui a distância entre um nome e outro para caber tudo */
+        flex-wrap: wrap; /* Se mesmo assim não couber, ele joga o resto para a linha de baixo sem quebrar a tela */
+    }
+
+    nav a {
+        font-size: 14px; /* Diminui um pouquinho a letra para economizar espaço no celular */
+    }
+}
 
 /* SEÇÕES */
 
