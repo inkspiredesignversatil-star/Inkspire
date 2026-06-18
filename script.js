@@ -65,18 +65,16 @@ setTimeout(reveal, 200);
 
 
 // ==========================================
-// LÓGICA DO ÁLBUM COM PASSO AUTOMÁTICO
+// LÓGICA DO ÁLBUM COM PASSO 100% AUTOMÁTICO
 // ==========================================
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const btnFechar = document.querySelector(".fechar-lightbox");
-const btnAnterior = document.querySelector(".anterior");
-const btnProxima = document.querySelector(".proxima");
 const cardsPortfolio = document.querySelectorAll(".card");
 
 let imagensAlbum = [];
 let indexAtual = 0;
-let temporizadorSlide = null; // Guarda o controle do tempo do slide
+let temporizadorSlide = null;
 
 if(lightbox) {
     lightbox.classList.remove("ativo");
@@ -91,15 +89,14 @@ function preCarregarImagens(listaImagens) {
     });
 }
 
-// Inicia o temporizador para passar sozinho
+// Inicia o temporizador para passar sozinho a cada 3,5 segundos
 function iniciarSlideAutomatico() {
-    pararSlideAutomatico(); // Garante que não vai duplicar cronômetros
+    pararSlideAutomatico();
     temporizadorSlide = setInterval(() => {
         proximaImagem();
-    }, 3500); // 3500 milissegundos = 3,5 segundos por foto
+    }, 3500);
 }
 
-// Para o temporizador quando fecha ou o usuário clica manualmente
 function pararSlideAutomatico() {
     if (temporizadorSlide) {
         clearInterval(temporizadorSlide);
@@ -127,7 +124,6 @@ cardsPortfolio.forEach(card => {
             
             document.body.style.overflow = "hidden";
             
-            // Só ativa o slide automático se o álbum tiver mais de 1 foto
             if (imagensAlbum.length > 1) {
                 iniciarSlideAutomatico();
             }
@@ -146,26 +142,8 @@ function proximaImagem() {
     mostrarImagem(indexAtual);
 }
 
-function anteriorImagem() {
-    indexAtual = (indexAtual - 1 + imagensAlbum.length) % imagensAlbum.length;
-    mostrarImagem(indexAtual);
-}
-
-// Cliques manuais nas setas resetam o tempo para não pular rápido demais
-btnProxima.addEventListener("click", (e) => {
-    e.stopPropagation();
-    proximaImagem();
-    iniciarSlideAutomatico(); 
-});
-
-btnAnterior.addEventListener("click", (e) => {
-    e.stopPropagation();
-    anteriorImagem();
-    iniciarSlideAutomatico();
-});
-
 function fecharAlbum() {
-    pararSlideAutomatico(); // Desliga o temporizador ao fechar
+    pararSlideAutomatico();
     lightbox.classList.remove("ativo");
     setTimeout(() => {
         lightbox.style.display = "none";
