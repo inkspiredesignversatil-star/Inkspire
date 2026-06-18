@@ -511,7 +511,7 @@ section::before {
     transform: translateY(0);
 }
 
-/* LIGHTBOX CORRIGIDO (ÁLBUM DE FOTOS) */
+/* LIGHTBOX CORRIGIDO (ÁLBUM DE FOTOS - MINIMALISTA SEM SETAS) */
 .lightbox {
     display: none;
     position: fixed;
@@ -562,20 +562,17 @@ section::before {
     z-index: 100001;
 }
 
-.seta-lightbox {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: white;
-    font-size: 50px;
-    padding: 15px;
-    cursor: pointer;
+/* TRAVA ANTI-CÓPIA PARA IMAGENS */
+img {
     user-select: none;
-    z-index: 100001;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    pointer-events: none;
 }
 
-.anterior { left: 2%; }
-.proxima { right: 2%; }
+.card, .lightbox, .fechar-lightbox {
+    pointer-events: auto !important;
+}
 
 /* =======================================================
    ESTILIZAÇÃO UNIFICADA DO RGB PARA A FOTO DO SOBRE MIM
@@ -706,17 +703,4 @@ section::before {
     }
 
     .fechar-lightbox { top: 20px; right: 25px; font-size: 45px; }
-    .seta-lightbox { font-size: 35px; padding: 10px; }
-}
-/* TRAVA ANTI-CÓPIA PARA IMAGENS */
-img {
-    user-select: none; /* Impede selecionar a imagem */
-    -webkit-user-drag: none; /* Impede arrastar a imagem (Browsers Webkit/Chrome) */
-    -webkit-touch-callout: none; /* Impede abrir o menu de salvar ao segurar o dedo no celular */
-    pointer-events: none; /* Bloqueia interações diretas de clique/salvamento na imagem */
-}
-
-/* Garante que o Lightbox e os Cards continuem clicáveis, mesmo com a imagem travada */
-.card, .lightbox, .seta-lightbox, .fechar-lightbox {
-    pointer-events: auto !important;
 }
