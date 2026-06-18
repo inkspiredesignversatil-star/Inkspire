@@ -60,12 +60,12 @@ function reveal(){
 }
 window.addEventListener("scroll", reveal);
 
-// Só activa as animações depois que tudo estiver no lugar
+// Só ativa as animações depois que tudo estiver no lugar
 setTimeout(reveal, 200);
 
 
 // ==========================================
-// LÓGICA DO ÁLBUM (LIGHTBOX) COM PRÉ-CARREGAMENTO
+// LÓGICA DO ÁLBUM COM PASSO AUTOMÁTICO
 // ==========================================
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
@@ -76,13 +76,14 @@ const cardsPortfolio = document.querySelectorAll(".card");
 
 let imagensAlbum = [];
 let indexAtual = 0;
+let temporizadorSlide = null; // Guarda o controle do tempo do slide
 
 if(lightbox) {
     lightbox.classList.remove("ativo");
     lightbox.style.display = "none";
 }
 
-// FUNÇÃO ATUALIZADA: Pré-carrega as imagens na memória do navegador
+// Pré-carrega as imagens na memória para não dar delay
 function preCarregarImagens(listaImagens) {
     listaImagens.forEach((url) => {
         const imgFake = new Image();
@@ -90,10 +91,24 @@ function preCarregarImagens(listaImagens) {
     });
 }
 
+// Inicia o temporizador para passar sozinho
+function iniciarSlideAutomatico() {
+    pararSlideAutomatico(); // Garante que não vai duplicar cronômetros
+    temporizadorSlide = setInterval(() => {
+        proximaImagem();
+    }, 3500); // 3500 milissegundos = 3,5 segundos por foto
+}
+
+// Para o temporizador quando fecha ou o usuário clica manualmente
+function pararSlideAutomatico() {
+    if (temporizadorSlide) {
+        clearInterval(temporizadorSlide);
+    }
+}
+
 cardsPortfolio.forEach(card => {
     const albumData = card.getAttribute("data-album");
     if (albumData) {
-        // Pré-carrega todas as fotos assim que o site abre, evitando lentidão ao passar
         const fotosDoCard = albumData.split(",");
         preCarregarImagens(fotosDoCard);
     }
@@ -111,6 +126,11 @@ cardsPortfolio.forEach(card => {
             }, 10);
             
             document.body.style.overflow = "hidden";
+            
+            // Só ativa o slide automático se o álbum tiver mais de 1 foto
+            if (imagensAlbum.length > 1) {
+                iniciarSlideAutomatico();
+            }
         }
     });
 });
@@ -121,19 +141,31 @@ function mostrarImagem(index) {
     }
 }
 
-btnProxima.addEventListener("click", (e) => {
-    e.stopPropagation();
+function proximaImagem() {
     indexAtual = (indexAtual + 1) % imagensAlbum.length;
     mostrarImagem(indexAtual);
+}
+
+function anteriorImagem() {
+    indexAtual = (indexAtual - 1 + imagensAlbum.length) % imagensAlbum.length;
+    mostrarImagem(indexAtual);
+}
+
+// Cliques manuais nas setas resetam o tempo para não pular rápido demais
+btnProxima.addEventListener("click", (e) => {
+    e.stopPropagation();
+    proximaImagem();
+    iniciarSlideAutomatico(); 
 });
 
 btnAnterior.addEventListener("click", (e) => {
     e.stopPropagation();
-    indexAtual = (indexAtual - 1 + imagensAlbum.length) % imagensAlbum.length;
-    mostrarImagem(indexAtual);
+    anteriorImagem();
+    iniciarSlideAutomatico();
 });
 
 function fecharAlbum() {
+    pararSlideAutomatico(); // Desliga o temporizador ao fechar
     lightbox.classList.remove("ativo");
     setTimeout(() => {
         lightbox.style.display = "none";
