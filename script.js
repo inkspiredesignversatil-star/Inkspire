@@ -1,15 +1,13 @@
 // FORÇA O SITE A FICAR NO TOPO ABSOLUTO SEM PULAR
 if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual'; // Desativa a memória de rolagem do navegador
+    history.scrollRestoration = 'manual';
 }
 
-// Limpa qualquer #id do link que faça o celular pular de seção ao carregar
 if (window.location.hash) {
     window.scrollTo(0, 0);
     history.replaceState("", document.title, window.location.pathname + window.location.search);
 }
 
-// Garante o topo no carregamento inicial
 window.scrollTo(0, 0);
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -59,17 +57,16 @@ function reveal(){
     });
 }
 window.addEventListener("scroll", reveal);
-
-// Só ativa as animações depois que tudo estiver no lugar
 setTimeout(reveal, 200);
 
 
 // ==========================================
-// LÓGICA DO ÁLBUM COM PASSO 100% AUTOMÁTICO
+// LÓGICA DO ÁLBUM COM TRANSICÃO E PONTINHOS
 // ==========================================
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const btnFechar = document.querySelector(".fechar-lightbox");
+const dotsContainer = document.getElementById("dots-container");
 const cardsPortfolio = document.querySelectorAll(".card");
 
 let imagensAlbum = [];
@@ -81,7 +78,6 @@ if(lightbox) {
     lightbox.style.display = "none";
 }
 
-// Pré-carrega as imagens na memória para não dar delay
 function preCarregarImagens(listaImagens) {
     listaImagens.forEach((url) => {
         const imgFake = new Image();
@@ -89,18 +85,41 @@ function preCarregarImagens(listaImagens) {
     });
 }
 
-// Inicia o temporizador para passar sozinho a cada 3,5 segundos
 function iniciarSlideAutomatico() {
     pararSlideAutomatico();
     temporizadorSlide = setInterval(() => {
         proximaImagem();
-    }, 3500);
+    }, 3500); // Passa a foto a cada 3.5 segundos
 }
 
 function pararSlideAutomatico() {
     if (temporizadorSlide) {
         clearInterval(temporizadorSlide);
     }
+}
+
+// Cria os pontinhos de forma dinâmica baseada na quantidade de fotos
+function gerarPontinhos() {
+    dotsContainer.innerHTML = ""; // Limpa os antigos
+    if (imagensAlbum.length <= 1) return; // Se for só 1 imagem, não precisa de pontos
+
+    imagensAlbum.forEach((_, index) => {
+        const dot = document.createElement("div");
+        dot.classList.add("dot");
+        if (index === indexAtual) dot.classList.add("dot-ativo");
+        dotsContainer.appendChild(dot);
+    });
+}
+
+function atualizarPontinhos() {
+    const dots = dotsContainer.querySelectorAll(".dot");
+    dots.forEach((dot, index) => {
+        if (index === indexAtual) {
+            dot.classList.add("dot-ativo");
+        } else {
+            dot.classList.remove("dot-ativo");
+        }
+    });
 }
 
 cardsPortfolio.forEach(card => {
@@ -115,6 +134,8 @@ cardsPortfolio.forEach(card => {
         if (dadosDoAlbum) {
             imagensAlbum = dadosDoAlbum.split(",");
             indexAtual = 0;
+            
+            gerarPontinhos();
             mostrarImagem(indexAtual);
             
             lightbox.style.display = "flex";
@@ -133,7 +154,15 @@ cardsPortfolio.forEach(card => {
 
 function mostrarImagem(index) {
     if(imagensAlbum[index]) {
-        lightboxImg.src = imagensAlbum[index].trim();
+        // Tira a classe de visível para fazer o efeito de sumir (fade-out)
+        lightboxImg.classList.remove("foto-visivel");
+        
+        setTimeout(() => {
+            lightboxImg.src = imagensAlbum[index].trim();
+            // Recarrega a classe para fazer a nova foto surgir (fade-in)
+            lightboxImg.classList.add("foto-visivel");
+            atualizarPontinhos();
+        }, 200); // Tempo rápido da piscada da transição
     }
 }
 
@@ -145,6 +174,7 @@ function proximaImagem() {
 function fecharAlbum() {
     pararSlideAutomatico();
     lightbox.classList.remove("ativo");
+    lightboxImg.classList.remove("foto-visivel");
     setTimeout(() => {
         lightbox.style.display = "none";
     }, 300);
@@ -153,10 +183,9 @@ function fecharAlbum() {
 
 btnFechar.addEventListener("click", fecharAlbum);
 lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) fecharAlbum();
+    if (e.target === lightbox || e.target.classList.contains('lightbox-content')) fecharAlbum();
 });
 
-// BLOQUEIA O BOTÃO DIREITO DO MOUSE NO SITE INTEIRO
 document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 });
