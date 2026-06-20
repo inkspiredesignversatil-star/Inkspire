@@ -750,3 +750,66 @@ img {
 
     .fechar-lightbox { top: 20px; right: 25px; font-size: 45px; }
 }
+/* BANNER BETA DO TOPO */
+.banner-beta {
+    width: 100%;
+    background: linear-gradient(90deg, #ff007f, #7000ff);
+    color: white;
+    text-align: center;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001; /* Fica acima do header */
+    box-shadow: 0 2px 15px rgba(0,0,0,0.5);
+}
+
+.banner-beta a {
+    color: #00d4ff;
+    text-decoration: underline;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+/* Ajuste no Header para não cobrir o banner em telas grandes */
+header {
+    top: 36px !important; /* Empurra o menu um pouco para baixo por causa do banner */
+}
+
+@media (max-width: 768px) {
+    .banner-beta { font-size: 12px; padding: 6px 10px; }
+    header { top: 45px !important; } /* Ajuste de espaçamento no mobile */
+}
+
+/* ESTILIZAÇÃO DO SISTEMA DE ESTRELAS (UX/UI) */
+.rating-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 8px;
+}
+
+.rating-stars input {
+    display: none;
+}
+
+.rating-stars label {
+    font-size: 36px;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Faz as estrelas acenderem no Hover (passar o mouse) e no Active (clicado) */
+.rating-stars label:hover,
+.rating-stars label:hover ~ label,
+.rating-stars input:checked ~ label {
+    color: #ffcc00; /* Cor dourada das estrelas acesas */
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+
+.rating-stars label:active {
+    transform: scale(0.9);
+}
