@@ -20,14 +20,15 @@ body {
 }
 
 /* HEADER / MENU COMPLETO */
+/* HEADER / MENU COMPLETO CORRIGIDO */
 header {
     width: 100%;
-    padding: 25px 8%;
+    padding: 20px 8%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; /* Garante o alinhamento vertical perfeito de tudo dentro do menu */
     position: fixed;
-    top: 0;
+    top: 38px; /* Espaço exato para o Banner Beta no PC */
     left: 0;
     z-index: 1000;
     background: rgba(0, 0, 0, .7);
@@ -812,4 +813,98 @@ header {
 
 .rating-stars label:active {
     transform: scale(0.9);
+}
+/* =======================================================
+   ESTILIZAÇÃO DO NOVO RODAPÉ ESTRUTURADO
+   ======================================================= */
+.site-footer {
+    background: rgba(5, 5, 5, 0.6);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 60px 8% 30px 8%;
+    font-size: 14px;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-col h4 {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.footer-col p {
+    color: #bdbdbd;
+    line-height: 1.6;
+    max-width: 320px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+    color: #bdbdbd;
+    display: flex;
+    align-items: center;
+}
+
+.footer-col ul li a {
+    color: #bdbdbd;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #00d4ff;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: #666;
+    font-size: 13px;
+}
+
+/* Responsividade do Rodapé para telas mobile */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        text-align: center !important;
+    }
+    .footer-col p {
+        margin: 0 auto;
+    }
+    .footer-col ul li {
+        justify-content: center;
+    }
+}
+/* =======================================================
+   CORREÇÃO DE ALINHAMENTO DO RODAPÉ (FOOTER)
+   ======================================================= */
+.footer-container {
+    align-items: start !important; /* Força todas as colunas a começarem exatamente na mesma linha no topo */
+}
+
+.footer-col {
+    text-align: left !important; /* Garante que a coluna da logo fique alinhada à esquerda como as outras */
+}
+
+.footer-col .logo {
+    margin-bottom: 20px !important;
+    line-height: 1 !important;
+    display: inline-block !important;
 }
