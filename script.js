@@ -189,3 +189,44 @@ lightbox.addEventListener("click", (e) => {
 document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 });
+// ==========================================
+// ENVIO SEGURO E OCULTO DE FORMULÁRIO (AJAX)
+// ==========================================
+const formFeedback = document.getElementById("feedback-form");
+const btnEnviarFeedback = document.getElementById("btn-enviar-feedback");
+
+if(formFeedback) {
+    formFeedback.addEventListener("submit", function(e) {
+        e.preventDefault(); // Impede o redirecionamento bizarro da página
+        
+        // Desativa o botão temporariamente para evitar cliques repetidos (Double-Submit Attack)
+        btnEnviarFeedback.disabled = true;
+        btnEnviarFeedback.innerText = "Enviando com segurança...";
+
+        const formData = new FormData(this);
+        
+        // Endpoint ocultado e disparado de forma assíncrona pelo navegador
+        fetch("https://formspree.io/f/mojzggeg", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                btnEnviarFeedback.innerText = "✓ Avaliação Enviada!";
+                btnEnviarFeedback.style.background = "#25D366";
+                btnEnviarFeedback.style.boxShadow = "0 0 15px #25D366";
+                formFeedback.reset(); // Limpa os campos
+            } else {
+                throw new Error('Erro no envio');
+            }
+        })
+        .catch(error => {
+            btnEnviarFeedback.disabled = false;
+            btnEnviarFeedback.innerText = "Erro ao enviar. Tente novamente.";
+            btnEnviarFeedback.style.background = "#ff007f";
+        });
+    });
+}
